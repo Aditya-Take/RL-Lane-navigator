@@ -74,10 +74,14 @@ A comprehensive autonomous driving agent using Imitation Learning and Reinforcem
 │   └── data_utils.py      # Data processing utilities
 ├── configs/               # Configuration files
 │   └── training_config.yaml  # Training hyperparameters
-└── scripts/               # Main execution scripts
-    ├── train_il.py        # Train imitation learning agent
-    ├── train_rl.py        # Train reinforcement learning agent
-    └── evaluate.py        # Evaluate trained agents
+├── scripts/               # Main execution scripts
+│   ├── train_il.py        # Train imitation learning agent
+│   ├── train_rl.py        # Train reinforcement learning agent
+│   └── evaluate.py        # Evaluate trained agents
+├── simulation_viewer.py   # Full simulation viewer with trained agents
+├── quick_simulation.py    # Quick demonstrations without trained models
+├── test_simulation.py     # Test script for simulation capabilities
+└── SIMULATION_GUIDE.md    # Comprehensive simulation usage guide
 ```
 
 ## 🚀 Quick Start
@@ -111,13 +115,50 @@ A vision-based autonomous agent capable of:
 - ✅ Generalizing across varied conditions
 - ✅ Achieving superior performance with IL+RL compared to IL-only
 
-## 📹 Demonstration
+## 📹 Simulation Viewing
+
+### Quick Demonstrations (No Trained Models Required)
+
+View simulations of all scenarios with simple rule-based agents:
+
+```bash
+# Test simulation capabilities
+python test_simulation.py
+
+# View a single scenario
+python quick_simulation.py --scenario highway --render
+
+# View all scenarios
+python quick_simulation.py --scenario all --render --save_videos
+
+# Interactive mode
+python quick_simulation.py --interactive
+```
+
+### Full Simulation Viewer (With Trained Models)
+
+View simulations with trained agents:
+
+```bash
+# View with trained RL agent
+python simulation_viewer.py --scenario highway --agent_type rl --agent_path ./models/rl_model --render
+
+# View all scenarios with hybrid agent
+python simulation_viewer.py --scenario all --agent_type hybrid --agent_path ./models/hybrid_model --save_videos
+
+# Interactive mode
+python simulation_viewer.py --interactive --agent_type rl --agent_path ./models/rl_model
+```
+
+### Supported Scenarios
 
 The agent will be evaluated on:
-- Lane keeping with random traffic
-- Intersection negotiation
-- Roundabout entry/exit with multiple agents
-- Parking in constrained space
+- 🛣️ **Highway Driving** - Multi-lane highway navigation with traffic
+- 🚦 **Intersection Handling** - Traffic light and stop sign navigation  
+- 🔁 **Roundabout Navigation** - Circular intersection navigation
+- 🅿️ **Parking Maneuvers** - Parallel and perpendicular parking
+
+For detailed usage instructions, see [SIMULATION_GUIDE.md](SIMULATION_GUIDE.md).
 
 ## 🔧 Configuration
 
