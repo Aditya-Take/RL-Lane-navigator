@@ -61,6 +61,9 @@ class ExpertDataCollector:
             },
             'reward_shaping': {
                 'enabled': False  # Disable for expert data collection
+            },
+            'multi_agent': {
+                'enabled': False  # Disable for expert data collection
             }
         }
         

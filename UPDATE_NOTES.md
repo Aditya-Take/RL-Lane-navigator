@@ -24,8 +24,12 @@ The repository has been successfully updated to use the latest compatible versio
 
 1. **Modern Python syntax**: Updated `super()` calls from old-style `super(Class, self)` to modern `super()`
 2. **Highway-env import fix**: Changed `from highway_env import make` to `import highway_env` and use `gym.make()`
-3. **Security improvements**: Added `weights_only=True` parameter to `torch.load()` calls for security
-4. **Python version requirement**: Updated setup.py to require Python 3.9+ (was 3.8+)
+3. **Highway-env API compatibility**: Updated environment configuration to use the new highway-env v1.10+ API:
+   - Changed from passing config parameters to `gym.make()` to using `env.configure()` method
+   - Updated `GrayscaleObservation` configuration with required parameters: `observation_shape`, `stack_size`, `weights`
+   - Fixed environment initialization flow to configure after creation but before reset
+4. **Security improvements**: Added `weights_only=True` parameter to `torch.load()` calls for security
+5. **Python version requirement**: Updated setup.py to require Python 3.9+ (was 3.8+)
 
 ### Known Issue:
 

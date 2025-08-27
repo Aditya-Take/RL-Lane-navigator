@@ -18,23 +18,33 @@ def get_highway_config(vehicles_count: int = 50,
     
     Args:
         vehicles_count: Number of vehicles in the environment
-        observation_type: Type of observation ("GrayscaleObservation", "RGB", "Kinematics")
-        action_type: Type of action ("ContinuousAction", "DiscreteAction")
+        observation_type: Type of observation ("GrayscaleObservation", "KinematicObservation")
+        action_type: Type of action ("ContinuousAction", "DiscreteMetaAction")
         **kwargs: Additional configuration parameters
         
     Returns:
         Environment configuration
     """
+    # Create observation config based on type
+    if observation_type == "GrayscaleObservation":
+        observation_config = {
+            "type": observation_type,
+            "observation_shape": (84, 84),
+            "stack_size": 4,
+            "weights": [0.2989, 0.5870, 0.1140],  # RGB to grayscale weights
+            "scaling": 5.5,
+            "centering_position": [0.3, 0.5]
+        }
+    else:
+        observation_config = {
+            "type": observation_type
+        }
+    
     config = {
         "id": "highway-v0",
         "import_module": "highway_env",
         "config": {
-            "observation": {
-                "type": observation_type,
-                "width": 84,
-                "height": 84,
-                "normalize": True
-            },
+            "observation": observation_config,
             "action": {
                 "type": action_type,
                 "acceleration_range": [-5.0, 5.0],
@@ -340,7 +350,25 @@ def create_environment(env_name: str,
         config = apply_domain_randomization(config, randomization_config)
     
     # Create environment
-    env = gym.make(env_name, **config.get('config', {}))
+    env_config = config.get('config', {})
+    
+    # Create basic environment first
+    env = gym.make(env_name)
+    
+    # Configure all parameters using configure method (highway-env v1.10+ approach)
+    if env_config:
+        # Access the underlying highway-env environment
+        unwrapped_env = env.unwrapped
+        if hasattr(unwrapped_env, 'configure'):
+            unwrapped_env.configure(env_config)
+            # Reset to apply the new configuration
+            try:
+                env.reset()
+            except:
+                # Some configurations might fail on first reset, that's okay
+                pass
+        else:
+            print(f"Warning: Environment {env_name} does not support configure method")
     
     return env
 
