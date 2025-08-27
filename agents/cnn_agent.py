@@ -322,7 +322,7 @@ class CNNImitationAgent:
         load_path = Path(load_path)
         
         # Load model state
-        self.model.load_state_dict(torch.load(load_path / "model.pth", map_location=self.device))
+        self.model.load_state_dict(torch.load(load_path / "model.pth", map_location=self.device, weights_only=True))
         
         # Load configuration
         with open(load_path / "config.json", 'r') as f:

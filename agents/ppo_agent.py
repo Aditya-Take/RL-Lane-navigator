@@ -189,7 +189,7 @@ class PPODrivingAgent:
         print(f"Loading pretrained weights from {pretrained_path}")
         
         # Load IL model
-        il_model = torch.load(f"{pretrained_path}/model.pth", map_location=self.device)
+        il_model = torch.load(f"{pretrained_path}/model.pth", map_location=self.device, weights_only=True)
         
         # Extract CNN weights
         cnn_weights = {}
