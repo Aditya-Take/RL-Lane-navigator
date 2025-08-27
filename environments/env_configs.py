@@ -6,7 +6,7 @@ Includes configurations for different environments and domain randomization.
 from typing import Dict, Any, List, Optional
 import numpy as np
 import gymnasium as gym
-from highway_env import make
+import highway_env
 
 
 def get_highway_config(vehicles_count: int = 50, 
@@ -340,7 +340,7 @@ def create_environment(env_name: str,
         config = apply_domain_randomization(config, randomization_config)
     
     # Create environment
-    env = make(env_name, **config.get('config', {}))
+    env = gym.make(env_name, **config.get('config', {}))
     
     return env
 

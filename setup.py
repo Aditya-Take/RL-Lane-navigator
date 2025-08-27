@@ -62,9 +62,13 @@ def check_dependencies():
         "matplotlib",
         "seaborn",
         "numpy",
-        "pandas",
         "tqdm",
-        "pyyaml"
+        "pyyaml",
+        "pillow",
+        "scikit-learn",
+        "tensorboard",
+        "imitation",
+        "wandb"
     ]
     
     missing_packages = []
@@ -121,8 +125,8 @@ def main():
     print("="*50)
     
     # Check Python version
-    if sys.version_info < (3, 8):
-        print("❌ Python 3.8 or higher is required!")
+    if sys.version_info < (3, 9):
+        print("❌ Python 3.9 or higher is required!")
         return False
     
     print(f"✅ Python {sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}")

@@ -36,7 +36,7 @@ class DrivingCNN(nn.Module):
             activation: Activation function ("relu", "leaky_relu", "elu")
             normalize_output: Whether to normalize output to [-1, 1]
         """
-        super(DrivingCNN, self).__init__()
+        super().__init__()
         
         self.input_channels = input_channels
         self.output_dim = output_dim
@@ -182,7 +182,7 @@ class DrivingCNNWithAttention(nn.Module):
             dropout_rate: Dropout rate
             attention_dim: Dimension of attention mechanism
         """
-        super(DrivingCNNWithAttention, self).__init__()
+        super().__init__()
         
         self.input_channels = input_channels
         self.output_dim = output_dim
@@ -307,7 +307,7 @@ class DrivingCNNWithLSTM(nn.Module):
             output_dim: Output dimension
             dropout_rate: Dropout rate
         """
-        super(DrivingCNNWithLSTM, self).__init__()
+        super().__init__()
         
         self.input_channels = input_channels
         self.output_dim = output_dim
